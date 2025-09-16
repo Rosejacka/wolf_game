@@ -1,0 +1,120 @@
+{
+  "openai_api_key": "",
+  "openai_base_url": "",
+  "comment_tts": "TTS配置说明：",
+  "comment_tts_voices": [
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+    "coral"
+  ],
+  "comment_tts_models": "tts-1-hd",
+  "players": [
+    {
+      "role": "村民",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "狼人",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "女巫",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "村民",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "狼人",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "村民",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "猎人",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "预言家",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "role": "狼人",
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    }
+  ],
+  "models": [
+    {
+      "model_name": "gpt-4.1",
+      "api_key": "",
+      "base_url": "https://ai.keep.fm/v1"
+    },
+    {
+      "model_name": "qwen-max-2025-01-25",
+      "api_key": "你的API_KEY2"
+    },
+    {
+      "model_name": "glm-4-plus",
+      "api_key": "你的API_KEY3"
+    },
+    {
+      "model_name": "Baichuan4",
+      "api_key": "你的API_KEY4"
+    },
+    {
+      "model_name": "deepseek-chat",
+      "api_key": "sk-40fc5dbaa2994823b1a615e03cb42fd1"
+    },
+    {
+      "model_name": "moonshot-v1-32k",
+      "api_key": "你的API_KEY6"
+    },
+    {
+      "model_name": "hunyuan-large",
+      "api_key": "你的API_KEY7"
+    }
+  ],
+  "judge": {
+    "model_name": "gpt-4.1",
+    "api_key": "",
+    "base_url": "https://ai.keep.fm/v1"
+  },
+  "random_model": false,
+  "randomize_roles": false,
+  "randomize_position": false,
+  "display_role": true,
+  "display_thinking": true,
+  "display_witch_action": true,
+  "display_wolf_action": true,
+  "display_hunter_action": true,
+  "display_divine_action": true,
+  "display_vote_action": true,
+  "display_model": true,
+  "random_seed": null,
+  "auto_play": true
+}

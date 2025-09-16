@@ -1,0 +1,76 @@
+{
+  "comment": "这是配置文件示例，请复制为config.json并填入您的API密钥",
+  
+  "openai_api_key": "your-openai-api-key-here",
+  "openai_base_url": "https://api.openai.com/v1",
+  
+  "comment_tts": "TTS配置说明：",
+  "comment_tts_voices": "可用语音: alloy, echo, fable, onyx, nova, shimmer, coral",
+  "comment_tts_models": "可用模型: tts-1 (快速), tts-1-hd (高质量)",
+  
+  "players": [
+    {
+      "position": 1,
+      "role": "狼人",
+      "model": "gpt-4.1",
+      "api_key": "your-api-key-here",
+      "base_url": "https://api.302.ai/v1/chat/completions"
+    },
+    {
+      "position": 2,
+      "role": "狼人",
+      "model": "deepseek-chat",
+      "api_key": "your-api-key-here",
+      "base_url": "https://api.deepseek.com/v1/chat/completions"
+    },
+    {
+      "position": 3,
+      "role": "预言家",
+      "model": "qwen-max-2025-01-25",
+      "api_key": "your-api-key-here",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+    },
+    {
+      "position": 4,
+      "role": "女巫",
+      "model": "glm-4-plus",
+      "api_key": "your-api-key-here",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+    },
+    {
+      "position": 5,
+      "role": "猎人",
+      "model": "Baichuan4",
+      "api_key": "your-api-key-here",
+      "base_url": "https://api.baichuan-ai.com/v1/chat/completions"
+    },
+    {
+      "position": 6,
+      "role": "村民",
+      "model": "moonshot-v1-32k",
+      "api_key": "your-api-key-here",
+      "base_url": "https://api.moonshot.cn/v1/chat/completions"
+    },
+    {
+      "position": 7,
+      "role": "村民",
+      "model": "hunyuan-large",
+      "api_key": "your-api-key-here",
+      "base_url": "https://hunyuan.tencentcloudapi.com/v1/chat/completions"
+    },
+    {
+      "position": 8,
+      "role": "村民",
+      "model": "human",
+      "api_key": "",
+      "base_url": ""
+    },
+    {
+      "position": 9,
+      "role": "村民",
+      "model": "human",
+      "api_key": "",
+      "base_url": ""
+    }
+  ]
+}

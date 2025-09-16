@@ -1,0 +1,1070 @@
+#main-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#game-area {
+  flex: 8 1 0;
+  min-width: 0;
+  height: 100vh;
+  position: relative;
+  background: #222;
+}
+
+#game-area canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 1;
+}
+
+#history-area {
+  flex: 2 1 0;
+  min-width: 200px;
+  max-width: 320px;
+  width: 100%;
+  height: 100vh;
+  background: #1a1a1a;
+  border-left: 2px solid #333;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* 让历史面板内容填充到#history-area */
+.history-panel {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #1a1a1a !important;
+  z-index: 11;
+}
+
+.history-toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 12;
+}
+
+body { margin: 0; overflow: hidden; }
+
+/* 位置控制面板样式 */
+.position-control-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border: 2px solid #3498db;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.position-control-panel.hidden {
+    display: none;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 13px 13px 0 0;
+    color: white;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.panel-content {
+    padding: 20px;
+    color: white;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.positions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.position-card {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border: 1px solid #3498db;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.position-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+}
+
+.position-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3498db;
+}
+
+.position-number {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #3498db;
+}
+
+.alive-status {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.alive-status.alive {
+    background-color: #27ae60;
+    color: white;
+}
+
+.alive-status.dead {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.position-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.position-controls label {
+    font-weight: bold;
+    color: #ecf0f1;
+    margin-bottom: 5px;
+}
+
+.role-select, .model-select, .position-select {
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    background-color: #2c3e50;
+    color: white;
+    font-size: 14px;
+}
+
+.role-select:focus, .model-select:focus, .position-select:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+}
+
+.swap-controls {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border: 1px solid #3498db;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.swap-controls h4 {
+    margin: 0 0 15px 0;
+    color: #3498db;
+    font-size: 1.2em;
+}
+
+.swap-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.swap-inputs span {
+    font-size: 1.5em;
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* 位置控制按钮样式 */
+.position-control-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 999;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.position-control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .position-control-panel {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .positions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .control-buttons {
+        flex-direction: column;
+    }
+
+    .swap-inputs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .swap-inputs span {
+        text-align: center;
+    }
+
+    .position-control-btn {
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+}
+
+/* 游戏前配置界面样式 */
+.pre-game-config {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: block;
+}
+
+.config-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0c0c0c, #1a1a1a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.config-panel {
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border: 2px solid #3498db;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.config-header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 18px 18px 0 0;
+}
+
+.config-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.config-header p {
+    margin: 0;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.config-content {
+    padding: 30px;
+}
+
+.config-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border-radius: 15px;
+    border: 1px solid #3498db;
+}
+
+.config-section h3 {
+    margin: 0 0 20px 0;
+    color: #3498db;
+    font-size: 1.5em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.quick-config-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.config-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.config-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+}
+
+#pre-positions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.pre-position-card {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.pre-position-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+    border-color: #e74c3c;
+}
+
+.pre-position-card .position-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+}
+
+.pre-position-card .position-number {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #3498db;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.pre-position-card .position-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pre-position-card .position-controls label {
+    font-weight: bold;
+    color: #ecf0f1;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.pre-position-card .role-select,
+.pre-position-card .model-select {
+    padding: 12px;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pre-position-card .role-select:focus,
+.pre-position-card .model-select:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    transform: scale(1.02);
+}
+
+.game-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.setting-item:hover {
+    background-color: rgba(52, 152, 219, 0.2);
+}
+
+.setting-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.config-footer {
+    padding: 30px;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border-radius: 0 0 18px 18px;
+    border-top: 2px solid #3498db;
+}
+
+.role-summary {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border-radius: 12px;
+    border: 1px solid #3498db;
+}
+
+.role-summary h4 {
+    margin: 0 0 15px 0;
+    color: #3498db;
+    font-size: 1.3em;
+}
+
+.role-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.role-count {
+    padding: 8px 15px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.config-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.config-actions .config-btn {
+    font-size: 16px;
+    padding: 15px 30px;
+    min-width: 150px;
+}
+
+/* 字幕速度控制面板样式 */
+.speed-control-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 320px;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    user-select: none;
+}
+
+.speed-control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+
+.speed-control-title {
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.speed-control-content {
+    padding: 15px;
+}
+
+.speed-slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.speed-slider-container label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#speed-value {
+    color: #3498db;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.speed-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #34495e, #2c3e50);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.speed-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.5);
+}
+
+.speed-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.speed-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.5);
+}
+
+.speed-presets {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.preset-btn {
+    flex: 1;
+    min-width: 45px;
+    padding: 6px 8px;
+    border: 1px solid #3498db;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.preset-btn:hover {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+}
+
+.preset-btn.active {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-color: #e74c3c;
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.4);
+}
+
+/* 历史记录面板样式 */
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border-left: 3px solid #3498db;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.history-panel.show {
+    transform: translateX(0);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-bottom: 2px solid #3498db;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
+
+.history-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.history-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.history-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.history-content {
+    padding: 20px;
+}
+
+.history-player {
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    border-radius: 10px;
+    border: 1px solid #3498db;
+    overflow: hidden;
+}
+
+.history-player-header {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    padding: 12px 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-number {
+    font-size: 1.2em;
+}
+
+.player-role {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.history-player-content {
+    padding: 15px;
+}
+
+.history-event {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid #3498db;
+    border-radius: 8px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.history-event:last-child {
+    margin-bottom: 0;
+}
+
+.event-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.8em;
+    color: #bdc3c7;
+}
+
+.player-info {
+    font-weight: bold;
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.event-icon {
+    font-size: 1.1em;
+}
+
+.event-type {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.event-time {
+    margin-left: auto;
+    opacity: 0.7;
+}
+
+.event-content {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.history-event.thinking {
+    border-left-color: #9b59b6;
+    background: rgba(155, 89, 182, 0.1);
+}
+
+.history-event.speak {
+    border-left-color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.history-event.vote {
+    border-left-color: #f39c12;
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.history-event.action {
+    border-left-color: #e67e22;
+    background: rgba(230, 126, 34, 0.1);
+}
+
+.history-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 160px; /* 调整位置避免与位置控制按钮重叠 */
+    z-index: 10001;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+
+.history-toggle-btn:hover {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+}
+
+.history-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #bdc3c7;
+    font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .history-panel {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .history-toggle-btn {
+        top: 60px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    .speed-control-panel {
+        width: 250px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .speed-control-header {
+        padding: 10px 12px;
+    }
+
+    .speed-control-title {
+        font-size: 13px;
+    }
+
+    .speed-control-content {
+        padding: 12px;
+    }
+
+    .preset-btn {
+        min-width: 40px;
+        padding: 5px 6px;
+        font-size: 10px;
+    }
+
+    .config-overlay {
+        padding: 10px;
+    }
+
+    .config-panel {
+        max-height: 95vh;
+    }
+
+    .config-header h1 {
+        font-size: 2em;
+    }
+
+    .config-content {
+        padding: 20px;
+    }
+
+    #pre-positions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-config-buttons {
+        flex-direction: column;
+    }
+
+    .config-actions {
+        flex-direction: column;
+    }
+
+    .role-counts {
+        justify-content: center;
+    }
+}
+
+/* 新增：分离控制面板的样式 */
+.speed-slider-container + .speed-slider-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#thinking-speed-value, #speaking-speed-value {
+    color: #3498db;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.thinking-presets .preset-btn {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.thinking-presets .preset-btn:hover {
+    background: linear-gradient(135deg, #a569c7, #9f55be);
+}
+
+.thinking-presets .preset-btn.active {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.5);
+}
+
+.speaking-presets .preset-btn {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.speaking-presets .preset-btn:hover {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.speaking-presets .preset-btn.active {
+    background: linear-gradient(135deg, #d35400, #ba4a00);
+    box-shadow: 0 0 10px rgba(211, 84, 0, 0.5);
+}
+
+.tts-info {
+    margin-top: 8px;
+    padding: 8px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #3498db;
+}
+
+.tts-info small {
+    color: #bdc3c7;
+    font-size: 11px;
+    line-height: 1.4;
+}
